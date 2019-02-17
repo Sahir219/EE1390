@@ -1,0 +1,40 @@
+import numpy as np
+import matplotlib.pyplot as plt
+import math
+C=np.array([3,-2])
+#x and y intercept of the given line
+
+A=np.matrix([[0,1/np.sqrt(3)],[1,0]])
+
+#define rotating angle
+T = math.pi/3
+
+#write rotation matrix
+R=np.matrix([[math.cos(T),math.sin(T)],[-math.sin(T),math.cos(T)]])
+S=np.matmul(R,A)
+Q=np.matrix([[S[0,0]-S[0,1]],[S[1,0]-S[1,1]]])
+
+#slope of line l
+m=Q[1]/Q[0]
+M=[m]*1000
+
+#now we know the slope of line l and a point A passing through it, equation of line can be known through point slope form
+
+#plotting part
+x=np.linspace(-15,15,1000)
+y=np.linspace(-15,15,1000)
+x,y = np.meshgrid(x,y)
+
+c1 =plt.contour(x,y,np.sqrt(3)*x-y-2-np.sqrt(3)*3,[0],colors='red',alpha=0.5,label='l')
+c2 = plt.contour(x,y,np.sqrt(3)*x +y-1,[0],colors='blue',alpha=0.5,label='l1')
+plt.plot(C[0],C[1],'o')
+plt.annotate('Given Line',xy =(-5,10))
+plt.annotate('Required Line',xy =(7.2,5))
+plt.annotate('Given Point',xy =(3.2,-1.8))
+plt.annotate('$\Theta$ = 60',xy =(0.3,-7.4))
+plt.xlabel('$x$')
+plt.ylabel('$y$')
+plt.legend(loc='best')
+plt.gca().set_aspect('equal')
+plt.grid()
+plt.show()
